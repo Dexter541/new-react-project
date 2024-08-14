@@ -1,0 +1,79 @@
+# NOTES
+
+-   state is like the if of react
+-   we use css modules so we dont have conflicting css
+-   avoid redundant state vars if you have group state add them to an object and also avoid deeply
+-   nested states
+
+-   props - these are arguments to like functions
+-   ? on a prop property tells typescript that the property is optional
+-   state - these are like variables
+
+-   with react node we can pass html content
+-   interface have a default type called children you can use it to pass children to a component
+
+//react strict mode help catches impure functions
+
+# error validation // {errors.name?.type === "required" && <p className="text-danger">The name field is required</p>}
+
+// {errors.name?.type === "minLength" && <p className="text-danger">The name must be at least 3 characters</p>} x
+
+# code from mosh
+
+// const [alertVisible, setAlertVisiblity] = useState(false);
+//const value = "click me";
+// const handleOnClick = (value) => {
+// setAlertVisiblity(true);
+// console.log("clicked");
+// };
+
+# UPDATING OBJECTS
+
+-   you can basically have to create new objects to update an existing one
+-   to avoid copying everything you can use the spread operator ie ... follow by the property you awant to update
+<!-- {/_ {alertVisible && <Alert onClose={() => setAlertVisiblity(false)}>My Alert</Alert>}
+<Button color="danger" children="click me" onClick={() => setAlertVisiblity(true)}></Button> _/} -->
+
+<!-- const [drink, setDrink] = useState({
+		Title: "malt",
+		Price: 5,
+	});
+	const [tags, setTags] = useState(["sad", "cheering"]);
+	const handleClick = () => {
+		setTags([...tags, "excited"]);
+
+		//setTags(tags.filter())
+	}; -->
+
+const handleClick = () => {
+//immer way of updating an array of objects
+setBugs(
+produce((draft) => {
+const bug = draft.find((bug) => bug.id === 1);
+if (bug) bug.title = "cynthia";
+})
+);
+};
+
+<!-- function App() {
+const [game, setGame] = useState({
+id: 1,
+player: {
+name: "ade",
+},
+});
+const handleClick = () => {
+//immer way of updating an array of objects
+//spread operator is shalow and doesnt automatically add the player field for us
+//proper way to update the logic
+setGame({ ...game, player: { ...game.player, name: "tinubu" } });
+};
+return (
+<div>
+<Like
+onClick={() => {
+handleClick;
+}} ></Like>
+</div>
+);
+} -->
